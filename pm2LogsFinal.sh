@@ -4,6 +4,8 @@ set -Eeuo pipefail
 LOG_DIR="/root/.pm2/logs"
 ARCHIVE_DIR="/root/pm2-log-archives"
 
+# we will have to change this bucket name for different projects right now i have used my bucket name.
+
 S3_BUCKET="abhijeetrana"
 
 S3_PREFIX="pm2-logs"
