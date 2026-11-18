@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-LOG_DIR="/root/.pm2/logs"
-ARCHIVE_DIR="/root/pm2-log-archives"
+
+HOME_DIR="/root/"
+LOG_DIR="${HOME_DIR}.pm2/logs"
+ARCHIVE_DIR="${HOME_DIR}pm2-log-archives"
+
 
 # we will have to change this bucket name for different projects right now i have used my bucket name.
 
@@ -43,7 +46,9 @@ ARCHIVE="$ARCHIVE_DIR/pm2-logs-${DAY}.zip"
 
 mapfile -d '' FILES < <(
     find "$LOG_DIR" -maxdepth 1 -type f \
-        -name "*__${DAY}.log" -print0
+        -name "*__${DAY}.log.gz" \
+        ! -name "pm2-logrotate-*" \
+        -print0
 )
 
 if (( ${#FILES[@]} == 0 )); then
